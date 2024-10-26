@@ -59,7 +59,7 @@
                     "id": "com.gingerbeardman.wordcounter.sidebar",
                     "name": "Word Counts",
                     "allowMultiple": false,
-                    "placeholderText": "No words are currently being tracked.",
+                    "placeholderText": "No words are currently being tracked."
                 }
             ]
         }
