@@ -1,16 +1,4 @@
 {
-  "com.gingerbeardman.wordcounter.trackedWords" : [
-    "fillCircle",
-    "drawCircle",
-    "fillRect",
-    "drawRect",
-    "fillRoundRect",
-    "drawRoundRect",
-    "fillEllipse",
-    "drawEllipse",
-    "setColor",
-    "setDither"
-  ],
   "eablokker.tabsSidebar.config.collapsedFolders" : [
 
   ],

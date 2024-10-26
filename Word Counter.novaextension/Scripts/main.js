@@ -46,9 +46,9 @@ class WordCounterDataProvider {
         let item = new TreeItem(element.word);
         
         // Get threshold values from workspace configuration
-        const thresholdLow = nova.workspace.config.get("com.gingerbeardman.wordcounter.thresholdLow", "number") || 3;
-        const thresholdMedium = nova.workspace.config.get("com.gingerbeardman.wordcounter.thresholdMedium", "number") || 7;
-        const thresholdHigh = nova.workspace.config.get("com.gingerbeardman.wordcounter.thresholdHigh", "number") || 10;
+        const thresholdLow = nova.workspace.config.get("com.gingerbeardman.wordcounter.thresholdLow", "number") || 5;
+        const thresholdMedium = nova.workspace.config.get("com.gingerbeardman.wordcounter.thresholdMedium", "number") || 10;
+        const thresholdHigh = nova.workspace.config.get("com.gingerbeardman.wordcounter.thresholdHigh", "number") || 15;
         
         // Set icon and tooltip based on count thresholds
         if (element.count >= thresholdHigh) {
@@ -68,8 +68,53 @@ class WordCounterDataProvider {
         item.descriptiveText = String(element.count);
         item.identifier = element.word;
         item.collapsibleState = TreeItemCollapsibleState.None;
+        item.command = "com.gingerbeardman.wordcounter.doubleClick";
         
         return item;
+    }
+    
+    static async triggerSearch(word) {
+        debug("[Word Counter] Triggering search for word:", word);
+        
+        // Construct the AppleScript command
+        const appleScript = `
+            tell application "System Events"
+                keystroke "f" using command down
+                delay 0.1
+                keystroke "${word}"
+            end tell
+        `;
+        
+        // Execute the AppleScript command
+        const process = new Process("/usr/bin/osascript", {
+            args: ["-e", appleScript]
+        });
+        
+        try {
+            const result = await process.start();
+            debug("[Word Counter] Search triggered successfully");
+        } catch (error) {
+            debug("[Word Counter] Error triggering search:", error);
+            nova.workspace.showErrorMessage("Failed to trigger search: " + error.message);
+        }
+    }
+    
+    static handleDoubleClick() {
+        if (!WordCounterDataProvider.treeView) {
+            debug("[Word Counter] Tree view reference not found");
+            return;
+        }
+        
+        const selection = WordCounterDataProvider.treeView.selection;
+        debug("[Word Counter] Selection:", selection);
+        
+        if (selection && selection[0]) {
+            const selectedWord = selection[0].word;
+            debug("[Word Counter] Selected word:", selectedWord);
+            WordCounterDataProvider.triggerSearch(selectedWord);
+        } else {
+            debug("[Word Counter] No item selected");
+        }
     }
     
     static updateCounts(editor) {
@@ -114,7 +159,24 @@ exports.activate = function() {
     let treeView = new TreeView("com.gingerbeardman.wordcounter.sidebar", {
         dataProvider: new WordCounterDataProvider()
     });
+
+    // Store reference to tree view
+    WordCounterDataProvider.treeView = treeView;
     
+    // Register the double-click command
+    const doubleClickDisposable = nova.commands.register("com.gingerbeardman.wordcounter.doubleClick", () => {
+        WordCounterDataProvider.handleDoubleClick();
+    });
+    nova.subscriptions.add(doubleClickDisposable);
+    
+    // Setup double-click behavior using mouse events
+    const mouseDisposable = treeView.onDidChangeSelection((selection) => {
+        if (treeView.onDidChangeSelection.clickCount === 2) {
+            WordCounterDataProvider.handleDoubleClick();
+        }
+    });
+    nova.subscriptions.add(mouseDisposable);
+
     // Watch for workspace config changes
     const configChangeDisposable = nova.workspace.config.onDidChange("com.gingerbeardman.wordcounter.trackedWords", (newVal, oldVal) => {
         debug("[Word Counter] Tracked words changed:", { newVal, oldVal });

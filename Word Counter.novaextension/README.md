@@ -14,9 +14,11 @@ Adds a sidebar that keeps count of how often specific keywords appear in the cur
 2. Configure words to track using **Project Settings...** → **Extensions** → **Word Counter**
 3. The sidebar will update in real-time as you edit documents
 
+You can also double-click a sidebar item to search for it within current document.
+
 ## Configuration
 
-The default tracked words are:
+Default tracked words are:
 
 - TODO
 - FIXME
@@ -28,4 +30,4 @@ Default threshold values are:
 - 10 (medium)
 - 15 (high)
 
-You can configure your own preferences for these through **Project Settings...**
+You can changes these on a per-project basis using **Project Settings...**

@@ -8,8 +8,12 @@
     "name": "Word Counter",
     "organization": "gingerbeardman",
     "repository": "https://github.com/gingerbeardman/Word-Counter",
-    "version": "1.0.0",
-
+    "version": "1.1.0",
+    
+    "entitlements": {
+        "process": true
+    },
+    
     "categories": ["sidebars"],
     "main": "main.js",
     
