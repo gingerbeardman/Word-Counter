@@ -87,7 +87,7 @@ class WordCounterDataProvider {
         }
         
         const text = editor.getTextInRange(new Range(0, editor.document.length));
-        const trackedWords = nova.workspace.config.get("com.gingerbeardman.wordcounter.trackedWords", "array") || ["TODO", "FIX", "NOTE"];
+        const trackedWords = nova.workspace.config.get("com.gingerbeardman.wordcounter.trackedWords", "array") || ["TODO", "FIXME", "NOTE"];
         
         // Reset counts
         this.wordCounts.clear();
