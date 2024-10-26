@@ -22,10 +22,24 @@ class WordCounterDataProvider {
     
     getChildren() {
         debug("[Word Counter] getChildren called, counts:", Array.from(WordCounterDataProvider.wordCounts.entries()));
-        return Array.from(WordCounterDataProvider.wordCounts.entries()).map(([word, count]) => ({
-            word,
-            count
-        }));
+        
+        // Convert Map entries to array and sort based on count (descending) and word (ascending)
+        const sortedEntries = Array.from(WordCounterDataProvider.wordCounts.entries())
+            .sort((a, b) => {
+                // First sort by count in descending order
+                const countDiff = b[1] - a[1];
+                if (countDiff !== 0) return countDiff;
+                
+                // If counts are equal, sort alphabetically by word
+                return a[0].localeCompare(b[0]);
+            })
+            .map(([word, count]) => ({
+                word,
+                count
+            }));
+            
+        debug("[Word Counter] Sorted children:", sortedEntries);
+        return sortedEntries;
     }
     
     getTreeItem(element) {

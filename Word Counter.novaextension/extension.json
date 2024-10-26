@@ -35,21 +35,21 @@
             "title": "Threshold Low",
             "description": "Word counts below this number are considered low usage",
             "type": "number",
-            "default": 3
+            "default": 5
         },
         {
             "key": "com.gingerbeardman.wordcounter.thresholdMedium",
             "title": "Threshold Medium",
             "description": "Word counts below this number and above low threshold are considered medium usage",
             "type": "number",
-            "default": 7
+            "default": 10
         },
         {
             "key": "com.gingerbeardman.wordcounter.thresholdHigh",
             "title": "Threshold High",
             "description": "Word counts above this number are considered high usage",
             "type": "number",
-            "default": 10
+            "default": 15
         }
     ],
     
