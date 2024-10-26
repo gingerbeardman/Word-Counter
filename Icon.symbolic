@@ -1,34 +1,34 @@
 {
-  "symbolColor" : {
-    "blue" : 0.9999999403953552,
-    "green" : 0.9999999403953552,
-    "alpha" : 1,
-    "red" : 0.9999999403953552
-  },
-  "id" : "24670896-9CE6-40DD-86CB-111B3E0DEB8D",
-  "topColor" : {
-    "green" : 0.7629849360938029,
-    "alpha" : 1,
-    "blue" : 0.3982860566937686,
-    "red" : 1
-  },
-  "iconScale" : 1.0249810368342598,
-  "bottomColor" : {
-    "alpha" : 1,
-    "red" : 0.8677262461095456,
-    "green" : 0.4386814507814749,
-    "blue" : 1
-  },
-  "shadowOpacity" : 0,
-  "iconOffset" : [
-    0.008556547619047672,
-    0.008370535714285698
-  ],
   "version" : 1,
-  "shadowHeight" : 0.3,
   "symbol" : {
     "name" : "numbers",
     "family" : "material-icons",
     "variant" : "round"
+  },
+  "shadowOpacity" : 0,
+  "shadowHeight" : 0.3,
+  "iconOffset" : [
+    0.008556547619047672,
+    0.008370535714285698
+  ],
+  "topColor" : {
+    "blue" : 0.5694978146721346,
+    "alpha" : 1,
+    "red" : 1,
+    "green" : 0.7756417757820838
+  },
+  "bottomColor" : {
+    "blue" : 1,
+    "green" : 0.35901803782678376,
+    "alpha" : 1,
+    "red" : 0.8693079636617929
+  },
+  "id" : "24670896-9CE6-40DD-86CB-111B3E0DEB8D",
+  "iconScale" : 1.0249810368342598,
+  "symbolColor" : {
+    "green" : 0.9999999403953552,
+    "alpha" : 1,
+    "blue" : 0.9999999403953552,
+    "red" : 0.9999999403953552
   }
 }

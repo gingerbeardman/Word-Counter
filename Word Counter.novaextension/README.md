@@ -10,8 +10,8 @@ Adds a sidebar that keeps count of how often specific keywords appear in the cur
 
 ## Usage
 
-1. Open the Word Counter sidebar (View → Sidebars → Word Counter)
-2. Configure words to track using the Project Settings... > Extensions > Word Counter > Settings panel
+1. Open the Word Counter sidebar (**View** → **Sidebars** → **Word Counter**)
+2. Configure words to track using **Project Settings...** → **Extensions** → **Word Counter**
 3. The sidebar will update in real-time as you edit documents
 
 ## Configuration
@@ -21,4 +21,4 @@ The default tracked words are:
 - FIXME
 - NOTE
 
-You can configure your own list of words through the "Configure Tracked Words" command.
+You can configure your own list of words through **Project Settings...**

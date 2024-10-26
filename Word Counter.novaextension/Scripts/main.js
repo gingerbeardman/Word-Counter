@@ -168,6 +168,27 @@ exports.activate = function() {
             }
         });
 
+        // Watch for text changes
+        const pathDisposable = editor.document.onDidChangePath((editor) => {
+            debug("[Word Counter] onDidChangePath fired:", {
+                path: editor.document?.path,
+                isActive: editor === nova.workspace.activeTextEditor,
+                isUntitled: editor.document?.isUntitled
+            });
+            
+            if (editor.document.isUntitled) {
+                debug("[Word Counter] Skipping untitled document");
+                return;
+            }
+
+            if (editor === nova.workspace.activeTextEditor) {
+                WordCounterDataProvider.updateCounts(editor);
+                treeView.reload();
+            } else {
+                debug("[Word Counter] Skipping inactive editor");
+            }
+        });
+
         // Watch for saves
         const saveDisposable = editor.onDidSave((editor) => {
             debug("[Word Counter] onDidSave fired:", {
@@ -256,12 +277,4 @@ exports.activate = function() {
     nova.subscriptions.add(treeView);
     
     debug("[Word Counter] Extension activated");
-};
-
-exports.deactivate = function() {
-    debug("[Word Counter] Extension deactivating, cleaning up disposables");
-    WordCounterDataProvider.disposables.forEach(disposable => {
-        disposable.dispose();
-    });
-    WordCounterDataProvider.disposables = [];
 };
