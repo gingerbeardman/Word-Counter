@@ -4,7 +4,7 @@ Adds a sidebar that keeps count of how often specific keywords appear in the cur
 
 ## Features
 
-- Configurable list of words to count
+- Configurable list of words to keep track of
 - Real-time updates as you type
 - Sidebar showing word counts with coloured labels
 
@@ -17,8 +17,15 @@ Adds a sidebar that keeps count of how often specific keywords appear in the cur
 ## Configuration
 
 The default tracked words are:
+
 - TODO
 - FIXME
 - NOTE
 
-You can configure your own list of words through **Project Settings...**
+Default threshold values are:
+
+- 5 (low)
+- 10 (medium)
+- 15 (high)
+
+You can configure your own preferences for these through **Project Settings...**

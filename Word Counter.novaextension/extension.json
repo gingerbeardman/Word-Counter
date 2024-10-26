@@ -1,5 +1,5 @@
 {
-    "bugs": "https://github.com/gingerbeardman/Macros/issues",
+    "bugs": "https://github.com/gingerbeardman/Word-Counter/issues",
     "description": "Keeps count of how many times specific keywords appear in the current document",
     "funding": "https://ko-fi.com/gingerbeardman",
     "homepage": "https://www.gingerbeardman.com",
@@ -7,15 +7,11 @@
     "license": "MIT",
     "name": "Word Counter",
     "organization": "gingerbeardman",
-    "repository": "https://github.com/gingerbeardman/Macros",
+    "repository": "https://github.com/gingerbeardman/Word-Counter",
     "version": "1.0.0",
 
     "categories": ["sidebars"],
     "main": "main.js",
-    
-    "entitlements": {
-        "filesystem": "readonly"
-    },
     
     "configWorkspace": [
         {
@@ -26,8 +22,7 @@
             "default": [
                 "TODO",
                 "FIXME",
-                "NOTE",
-                "example"
+                "NOTE"
             ]
         },
         {

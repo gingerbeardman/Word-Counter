@@ -8,6 +8,8 @@ See the internal [README](/Word%20Counter.novaextension/README.md) for more info
 
 Recommended download from [Nova Extensions](https://extensions.panic.com/extensions/com.gingerbeardman/com.gingerbeardman.wordcounter/) website.
 
+![PNG](nova-word-counter.png)
+
 # Licence
 
 [MIT](/LICENSE)
