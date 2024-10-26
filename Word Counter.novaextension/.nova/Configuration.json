@@ -10,5 +10,20 @@
     "drawEllipse",
     "setColor",
     "setDither"
+  ],
+  "eablokker.tabsSidebar.config.collapsedFolders" : [
+
+  ],
+  "eablokker.tabsSidebar.config.customKindGroupsOrder" : [
+    "markdown",
+    "javascript",
+    "json"
+  ],
+  "eablokker.tabsSidebar.config.customTabOrder" : [
+    "file:\/\/\/Users\/matt\/Projects\/Nova%20Extensions\/Word%20Counter\/Word%20Counter.novaextension\/CHANGELOG.md",
+    "file:\/\/\/Users\/matt\/Projects\/Nova%20Extensions\/Word%20Counter\/Word%20Counter.novaextension\/Scripts\/main.js",
+    "file:\/\/\/Users\/matt\/Projects\/Nova%20Extensions\/Word%20Counter\/Word%20Counter.novaextension\/.nova\/Configuration.json",
+    "file:\/\/\/Users\/matt\/Projects\/Nova%20Extensions\/Word%20Counter\/Word%20Counter.novaextension\/extension.json",
+    "file:\/\/\/Users\/matt\/Projects\/Nova%20Extensions\/Word%20Counter\/Word%20Counter.novaextension\/README.md"
   ]
 }
