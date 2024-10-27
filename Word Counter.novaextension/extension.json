@@ -8,7 +8,7 @@
     "name": "Word Counter",
     "organization": "gingerbeardman",
     "repository": "https://github.com/gingerbeardman/Word-Counter",
-    "version": "1.1.0",
+    "version": "1.1.1",
     
     "entitlements": {
         "process": true
@@ -57,7 +57,9 @@
             "id": "com.gingerbeardman.wordcounter.sidebar",
             "name": "Word Counter",
             "smallImage": "sidebar-small",
+            "smallSelectedImage": "sidebar-small-selected",
             "largeImage": "sidebar-medium",
+            "largeSelectedImage": "sidebar-medium-selected",
             "sections": [
                 {
                     "id": "com.gingerbeardman.wordcounter.sidebar",
