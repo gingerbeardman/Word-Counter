@@ -1,4 +1,8 @@
-## Version 1.1.x
+## Version 1.1.3
+
+Change: added refresh when user clicks into document
+
+## Version 1.1.1/2
 
 Change: improved selected sidebar icons
 

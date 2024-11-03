@@ -209,7 +209,27 @@ exports.activate = function() {
             isUntitled: editor.document?.isUntitled
         });
 
-        // Watch for text changes
+        // Watch for selection changes
+        const selectionDisposable = editor.onDidChangeSelection((editor) => {
+            debug("[Word Counter] onDidChangeSelection fired:", {
+                path: editor.document?.path,
+                isActive: editor === nova.workspace.activeTextEditor
+            });
+            
+            if (editor.document.isUntitled) {
+                debug("[Word Counter] Skipping untitled document");
+                return;
+            }
+
+            if (editor === nova.workspace.activeTextEditor) {
+                WordCounterDataProvider.updateCounts(editor);
+                treeView.reload();
+            } else {
+                debug("[Word Counter] Skipping inactive editor");
+            }
+        });
+
+        // Watch for text changes (as backup)
         const changeDisposable = editor.onDidStopChanging((editor) => {
             debug("[Word Counter] onDidStopChanging fired:", {
                 path: editor.document?.path,
@@ -249,6 +269,7 @@ exports.activate = function() {
 
         // Store disposables
         WordCounterDataProvider.disposables.push(
+            selectionDisposable,
             changeDisposable,
             saveDisposable
         );
