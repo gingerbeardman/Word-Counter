@@ -1,3 +1,9 @@
+## Version 2.0.0
+
+Add: also manage list of words through sidebar
+
+----
+
 ## Version 1.1.3
 
 Change: added refresh when user clicks into document

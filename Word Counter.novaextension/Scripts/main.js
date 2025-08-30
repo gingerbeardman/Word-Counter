@@ -69,6 +69,7 @@ class WordCounterDataProvider {
         item.identifier = element.word;
         item.collapsibleState = TreeItemCollapsibleState.None;
         item.command = "com.gingerbeardman.wordcounter.doubleClick";
+        item.contextValue = "wordItem";
         
         return item;
     }
@@ -114,6 +115,110 @@ class WordCounterDataProvider {
             WordCounterDataProvider.triggerSearch(selectedWord);
         } else {
             debug("[Word Counter] No item selected");
+        }
+    }
+    
+    static handleAddWord(treeView) {
+        debug("[Word Counter] Add word command triggered");
+        
+        const editor = nova.workspace.activeTextEditor;
+        if (!editor) {
+            nova.workspace.showWarningMessage("No active editor found. Please open a document first.");
+            return;
+        }
+        
+        const selectedRange = editor.selectedRange;
+        let wordToAdd = null;
+        
+        // Check if there's selected text
+        if (selectedRange && selectedRange.length > 0) {
+            const selectedText = editor.getTextInRange(selectedRange).trim();
+            if (selectedText) {
+                wordToAdd = selectedText;
+            }
+        }
+        
+        // If no selected text, show input panel
+        if (!wordToAdd) {
+            nova.workspace.showInputPanel("Enter a word to track (tip: you can also select text in your document and click the + button to add it directly)", {
+                label: "Word:",
+                placeholder: "e.g., TODO, FIXME, NOTE",
+                prompt: "Add Word"
+            }, (inputValue) => {
+                if (inputValue && inputValue.trim()) {
+                    WordCounterDataProvider.addWordToTracking(inputValue.trim(), treeView);
+                }
+            });
+            return;
+        }
+        
+        // Add the selected word directly
+        WordCounterDataProvider.addWordToTracking(wordToAdd, treeView);
+    }
+    
+    static addWordToTracking(word, treeView) {
+        debug("[Word Counter] Adding word to tracking:", word);
+        
+        // Get current tracked words
+        const currentWords = nova.workspace.config.get("com.gingerbeardman.wordcounter.trackedWords", "array") || [];
+        
+        // Check if word is already being tracked
+        if (currentWords.includes(word)) {
+            return;
+        }
+        
+        // Add the new word
+        const updatedWords = [...currentWords, word];
+        nova.workspace.config.set("com.gingerbeardman.wordcounter.trackedWords", updatedWords);
+        
+        debug("[Word Counter] Added word:", word);
+        
+        // Update counts and reload tree view
+        const editor = nova.workspace.activeTextEditor;
+        if (editor) {
+            WordCounterDataProvider.updateCounts(editor);
+            treeView.reload();
+        }
+    }
+    
+    static handleRemoveWord(treeView) {
+        debug("[Word Counter] Remove word command triggered");
+        
+        if (!WordCounterDataProvider.treeView) {
+            debug("[Word Counter] Tree view reference not found");
+            return;
+        }
+        
+        const selection = WordCounterDataProvider.treeView.selection;
+        debug("[Word Counter] Selection for removal:", selection);
+        
+        if (!selection || !selection[0]) {
+            nova.workspace.showWarningMessage("Please select a word to remove from tracking.");
+            return;
+        }
+        
+        const selectedWord = selection[0].word;
+        debug("[Word Counter] Word to remove:", selectedWord);
+        
+        // Get current tracked words
+        const currentWords = nova.workspace.config.get("com.gingerbeardman.wordcounter.trackedWords", "array") || [];
+        
+        // Remove the selected word
+        const updatedWords = currentWords.filter(word => word !== selectedWord);
+        
+        if (updatedWords.length === currentWords.length) {
+            return;
+        }
+        
+        nova.workspace.config.set("com.gingerbeardman.wordcounter.trackedWords", updatedWords);
+        
+        debug("[Word Counter] Removed word:", selectedWord);
+        
+        // Update counts and reload tree view
+        const editor = nova.workspace.activeTextEditor;
+        if (editor) {
+            WordCounterDataProvider.updateCounts(editor);
+            treeView.reload();
         }
     }
     
@@ -168,6 +273,18 @@ exports.activate = function() {
         WordCounterDataProvider.handleDoubleClick();
     });
     nova.subscriptions.add(doubleClickDisposable);
+    
+    // Register the add word command
+    const addWordDisposable = nova.commands.register("com.gingerbeardman.wordcounter.addWord", () => {
+        WordCounterDataProvider.handleAddWord(treeView);
+    });
+    nova.subscriptions.add(addWordDisposable);
+    
+    // Register the remove word command
+    const removeWordDisposable = nova.commands.register("com.gingerbeardman.wordcounter.removeWord", () => {
+        WordCounterDataProvider.handleRemoveWord(treeView);
+    });
+    nova.subscriptions.add(removeWordDisposable);
     
     // Setup double-click behavior using mouse events
     const mouseDisposable = treeView.onDidChangeSelection((selection) => {

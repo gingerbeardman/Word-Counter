@@ -8,7 +8,7 @@
     "name": "Word Counter",
     "organization": "gingerbeardman",
     "repository": "https://github.com/gingerbeardman/Word-Counter",
-    "version": "1.1.3",
+    "version": "2.0.0",
     
     "entitlements": {
         "process": true
@@ -65,7 +65,29 @@
                     "id": "com.gingerbeardman.wordcounter.sidebar",
                     "name": "Word Counts",
                     "allowMultiple": false,
-                    "placeholderText": "No words are currently being tracked."
+                    "placeholderText": "No words are currently being tracked.",
+                    "headerCommands": [
+                        {
+                            "title": "Add Word",
+                            "image": "__builtin.add",
+                            "tooltip": "Add selected text as tracked word",
+                            "command": "com.gingerbeardman.wordcounter.addWord"
+                        },
+                        {
+                            "title": "Remove Word",
+                            "image": "__builtin.remove",
+                            "tooltip": "Remove selected tracked word",
+                            "command": "com.gingerbeardman.wordcounter.removeWord",
+                            "when": "viewItem != null"
+                        }
+                    ],
+                    "contextCommands": [
+                        {
+                            "title": "Remove Word",
+                            "command": "com.gingerbeardman.wordcounter.removeWord",
+                            "when": "viewItem != null"
+                        }
+                    ]
                 }
             ]
         }

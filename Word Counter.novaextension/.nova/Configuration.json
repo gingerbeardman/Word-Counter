@@ -1,4 +1,10 @@
 {
+  "com.gingerbeardman.wordcounter.trackedWords" : [
+    "TODO",
+    "FIXME",
+    "NOTE",
+    "showInputPanel"
+  ],
   "eablokker.tabsSidebar.config.collapsedFolders" : [
 
   ],
